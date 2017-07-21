@@ -1,2 +1,0 @@
-@if exist %windir%\SysWOW64 ( reg add "HKEY_LOCAL_MACHINE\SOFTWARE\Wow6432Node\Microsoft\Internet Explorer\Main\FeatureControl\FEATURE_BFCACHE" /v iexplorer.exe /t REG_DWORD /d 0 /f
-) else reg add "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Internet Explorer\Main\FeatureControl\FEATURE_BFCACHE" /v iexplorer.exe /t REG_DWORD /d 0 /f
