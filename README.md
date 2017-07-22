@@ -1,5 +1,5 @@
 # PriceSpider
-Price Spider is a Python tool to get price &amp; promotion from JD, Tmal, Amazon, BeiBei.  
+Price Spider is a Python tool to get price &amp; promotion from JD, Tmall, Amazon, BeiBei.  
 
 ## Requirements
 When you use the tool, sometimes the tool will launch your browser automatically.So you should satisfy some requirements, then this tool can launch your browser and get the info you care about.  
