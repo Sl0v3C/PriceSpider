@@ -211,7 +211,7 @@ def getWebdriver():
     return driver
 
 def getHTML(url):
-    r = requests.get(url, headers=header)
+    r = requests.get(url, headers=header, timeout=30)
 
     return r
 
