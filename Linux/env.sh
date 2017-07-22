@@ -36,16 +36,16 @@ sudo pip3 install requests lxml
 #4 webdriver needs
 if [ "$AA" != "" ]; then # AA64
     # geckodriver v0.18 for Firefox 56 and greater
-    sudo mv A64/geckodriver /usr/local/bin
+    sudo cp A64/geckodriver /usr/local/bin
     # chromdriver v2.30 Supports Chrome v58-60
-    sudo mv A64/chromedriver /usr/local/bin
+    sudo cp A64/chromedriver /usr/local/bin
     # run the price spider
     python3.4 process.py
 else # X86
     # geckodriver v0.18 for Firefox 56 and greater
-    sudo mv X86/geckodriver /usr/local/bin
+    sudo cp X86/geckodriver /usr/local/bin
     # chromdriver v2.30 Supports Chrome v58-60
-    sudo mv X86/chromedriver /usr/local/bin
+    sudo cp X86/chromedriver /usr/local/bin
     # run the price spider
     python3 process.py
 fi

@@ -120,8 +120,11 @@ class JDprice(object):
         return promotion
 
     def get_product_name(self):
-        NAME = re.compile(r"name: '(.*?)',")
-        name = re.findall(NAME, self.info)[0]
+        name = ""
+            NAME = re.compile(r"name: '(.*?)',")
+            name = re.findall(NAME, self.info)[0]
+        except:
+            pass
 
         return bytes(name.encode()).decode('unicode-escape')
 
@@ -132,8 +135,10 @@ class JDprice(object):
         skuid = self.get_product_skuid()
         r = HTMLInfo.getHTML("https://d.jd.com/lab/get?callback=lab")
         MATCH = re.compile(r"lab\(\[(.*?)\]\)")
-        date = eval(re.findall(MATCH, r)[0])["startOn"] + 22222
-      
+        for i in eval(re.findall(MATCH, r)[0]):
+            if re.match('www.jd.com', i['url']):
+                date = i["startOn"]
+
         date = str(date) + "1608370126"
           
         # this url to get the price for JD
