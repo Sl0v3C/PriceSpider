@@ -97,7 +97,6 @@ Price Spider是一个可以帮助用户从各大电商网站如京东，天猫�
 ```
 IE11_regedit_update.bat
 ```
-。  
 #### Firefox浏览器(geckoriver)
 工具会拷贝geckodriver.exe到系统PATH，以便其能够运行。
 请确保你的Firefox浏览器版本与geckodriver版本保持对应关系。  
