@@ -69,8 +69,10 @@ LEGO
 ## Usage
 When you finish the configurate and satisfy the requirements then you can execute the ```
 run.bat
-``` for Windows version or ``` ./env.sh ``` for Linux version.
+``` for Windows version or ``` ./env.sh ``` for Linux version.  
 
+***
+ 
 # PriceSpider中文README
 Price Spider是一个可以帮助用户从各大电商网站如京东，天猫，亚马逊，贝贝等抓取价格和优惠的一款Python工具。
 
