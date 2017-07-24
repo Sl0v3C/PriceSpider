@@ -1,6 +1,17 @@
 # PriceSpider
 Price Spider is a Python tool to get price &amp; promotion from JD, Tmall, Amazon, BeiBei.  
 
+Content:
+- [Requirements](https://github.com/Sl0v3C/PriceSpider#requirements)  
+&nbsp;&nbsp;&nbsp;&nbsp;1.[Windows](https://github.com/Sl0v3C/PriceSpider#windows-verison-requirements)  
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;1\.1 [chromedriver](https://github.com/Sl0v3C/PriceSpider#chromedriver-for-chrome-browser)  
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;1\.2 [IEDriverServer](https://github.com/Sl0v3C/PriceSpider#iedriverserver-for-internet-explorer-browser)  
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;1\.3 [geckodriver](https://github.com/Sl0v3C/PriceSpider#geckodriver-for-firefox-browser)  
+- [Configuration](https://github.com/Sl0v3C/PriceSpider#configuration)  
+&nbsp;&nbsp;&nbsp;&nbsp;1. [urlLink](https://github.com/Sl0v3C/PriceSpider#cfgurllink)  
+&nbsp;&nbsp;&nbsp;&nbsp;2. [PRODUCT](https://github.com/Sl0v3C/PriceSpider#cfgproduct)
+- [Usage](https://github.com/Sl0v3C/PriceSpider#usage)
+
 ## Requirements
 When you use the tool, sometimes the tool will launch your browser automatically.So you should satisfy some requirements, then this tool can launch your browser and get the info you care about.  
 ### Windows verison requirements
@@ -51,6 +62,18 @@ When you finish the configurate and satisfy the requirements then you can execut
 ***
 # PriceSpider中文README
 Price Spider是一个可以帮助用户从各大电商网站如京东，天猫，亚马逊，贝贝等抓取价格和优惠的一款Python工具。
+
+
+目录:
+- [要求](https://github.com/Sl0v3C/PriceSpider#要求)  
+&nbsp;&nbsp;&nbsp;&nbsp;1.[Windows版本要求](https://github.com/Sl0v3C/PriceSpider#windows版本要求)  
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;1\.1 [Chrome浏览器](https://github.com/Sl0v3C/PriceSpider#chrome浏览器chromedriver)  
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;1\.2 [IE浏览器](https://github.com/Sl0v3C/PriceSpider#ie浏览器iedriverserver)  
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;1\.3 [Firefox浏览器](https://github.com/Sl0v3C/PriceSpider#firefox浏览器geckodriver)    
+- [配置](https://github.com/Sl0v3C/PriceSpider#配置)  
+&nbsp;&nbsp;&nbsp;&nbsp;1. [urlLink](https://github.com/Sl0v3C/PriceSpider#cfgurllink-1)  
+&nbsp;&nbsp;&nbsp;&nbsp;2. [PRODUCT](https://github.com/Sl0v3C/PriceSpider#cfgproduct-1)  
+- [用法](https://github.com/Sl0v3C/PriceSpider#用法)  
 
 ## 要求
 当你使用本工具时，某些时候工具会自动地启动你的浏览器来抓取商品信息，所以必须满足一些条件，这样工具才能顺利地启动浏览器。
