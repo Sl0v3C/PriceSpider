@@ -19,11 +19,7 @@ The tool also will copy the IEDriverServer.exe to the system PATH.
 
 * On IE 7 or higher on Windows Vista or Windows 7, you must set the Protected Mode settings for each zone to be the same value. The value can be on or off, as long as it is the same for every zone. To set the Protected Mode settings, choose "Internet Options..." from the Tools menu, and click on the Security tab. For each zone, there will be a check box at the bottom of the tab labeled "Enable Protected Mode".
 * Additionally, "Enhanced Protected Mode" must be disabled for IE 10 and higher. This option is found in the Advanced tab of the Internet Options dialog.
-* For IE11 only, you will need to execute the 
-```
-IE11_regedit_update.bat
-```
-firstly
+* For IE11 only, you will need to execute the```IE11_regedit_update.bat```firstly
 #### geckoriver for Firefox browser  
 The tool also will copy the geckodriver.exe to the system PATH.  
 Please make sure your Firefox broser version is adapted to geckodriver verison.        
@@ -93,10 +89,7 @@ Price Spider是一个可以帮助用户从各大电商网站如京东，天猫�
 
 * 针对windows vista和windows 7上的IE7或者更高的版本，必须在IE选项设置的安全选项栏里保证4个区域的保护模式是一致的，即全部勾选启用或者全部不勾选禁用。
 * 针对IE10或更高的版本，则必须在IE选项中的高级选项中，取消增强保护模式。
-* 只针对IE11的版本，需要在运行run.bat之前先运行
-```
-IE11_regedit_update.bat
-```
+* 只针对IE11的版本，需要在运行run.bat之前先运行```IE11_regedit_update.bat```
 #### Firefox浏览器(geckoriver)
 工具会拷贝geckodriver.exe到系统PATH，以便其能够运行。
 请确保你的Firefox浏览器版本与geckodriver版本保持对应关系。  
