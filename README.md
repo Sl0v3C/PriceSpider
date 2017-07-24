@@ -1,6 +1,16 @@
 # PriceSpider
 Price Spider is a Python tool to get price &amp; promotion from JD, Tmall, Amazon, BeiBei.  
 
+Content:
+- [Requirements](https://github.com/Sl0v3C/PriceSpider#requirements)  
+&nbsp;&nbsp;&nbsp;&nbsp;1. [Linux](https://github.com/Sl0v3C/PriceSpider#linux-verison-requirements)  
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;1\.1 [chromedriver](https://github.com/Sl0v3C/PriceSpider#chromedriver-for-chrome-browser-1)  
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;1\.2 [geckodriver](https://github.com/Sl0v3C/PriceSpider#geckodriver-for-firefox-browser-1)  
+- [Configuration](https://github.com/Sl0v3C/PriceSpider#configuration)  
+&nbsp;&nbsp;&nbsp;&nbsp;1. [urlLink](https://github.com/Sl0v3C/PriceSpider#cfgurllink)  
+&nbsp;&nbsp;&nbsp;&nbsp;2. [PRODUCT](https://github.com/Sl0v3C/PriceSpider#cfgproduct)
+- [Usage](https://github.com/Sl0v3C/PriceSpider#usage)
+
 ## Requirements
 When you use the tool, sometimes the tool will launch your browser automatically.So you should satisfy some requirements, then this tool can launch your browser and get the info you care about.  
 
@@ -14,7 +24,7 @@ You can download the [chromedriver](http://chromedriver.storage.googleapis.com/i
 
 * The tool contains chromedriver is 2.22 supports Chrome v49-52.
 
-#### geckoriver for Firefox browser  
+#### geckodriver for Firefox browser  
 The tool also will copy the geckodriver to /usr/local/bin/.  
 Please make sure your Firefox broser version is adapted to geckodriver verison.        
 You can download the [geckodriver](https://github.com/mozilla/geckodriver/releases) for your Firefox version. And copy it to the A64 or X86 in the tool folder. 
@@ -46,6 +56,16 @@ When you finish the configurate and satisfy the requirements then you can execut
 # PriceSpider中文README
 Price Spider是一个可以帮助用户从各大电商网站如京东，天猫，亚马逊，贝贝等抓取价格和优惠的一款Python工具。
 
+目录:
+- [要求](https://github.com/Sl0v3C/PriceSpider#要求)  
+&nbsp;&nbsp;&nbsp;&nbsp;1. [Linux版本要求](https://github.com/Sl0v3C/PriceSpider#linux版本要求)  
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;1\.1 [Chrome浏览器](https://github.com/Sl0v3C/PriceSpider#chrome浏览器chromedriver-1)  
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;1\.2 [Firefox浏览器](https://github.com/Sl0v3C/PriceSpider#firefox浏览器geckodriver-1)  
+- [配置](https://github.com/Sl0v3C/PriceSpider#配置)  
+&nbsp;&nbsp;&nbsp;&nbsp;1. [urlLink](https://github.com/Sl0v3C/PriceSpider#cfgurllink-1)  
+&nbsp;&nbsp;&nbsp;&nbsp;2. [PRODUCT](https://github.com/Sl0v3C/PriceSpider#cfgproduct-1)  
+- [用法](https://github.com/Sl0v3C/PriceSpider#用法)  
+
 ## 要求
 当你使用本工具时，某些时候工具会自动地启动你的浏览器来抓取商品信息，所以必须满足一些条件，这样工具才能顺利地启动浏览器。
 
@@ -59,8 +79,8 @@ Price Spider是一个可以帮助用户从各大电商网站如京东，天猫�
 
 * 本工具自带的chromedriver是2.22版本的，支持Chrome版本49-52。
 
-#### Firefox浏览器(geckoriver)  
-工具会自动地拷贝chromedriver到/usr/local/bin目录下。  
+#### Firefox浏览器(geckodriver)  
+工具会自动地拷贝geckodriver到/usr/local/bin目录下。  
 请确保你的Firefox浏览器版本与geckodriver版本保持对应关系。  
 你也可以通过[geckodriver](https://github.com/mozilla/geckodriver/releases)链接下载与你的Firefox浏览器版本对应的版本，记得替换掉工具目录中的原始版本。
 
