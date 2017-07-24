@@ -2,7 +2,7 @@
 Price Spider is a Python tool to get price &amp; promotion from JD, Tmall, Amazon, BeiBei.  
 
 Content:
-- [Requirements](https://github.com/Sl0v3C/PriceSpider#requirements)  
+- [Requirements](#requirements)  
 &nbsp;&nbsp;&nbsp;&nbsp;1.[Windows](https://github.com/Sl0v3C/PriceSpider#windows-verison-requirements)  
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;1\.1 [chromedriver](https://github.com/Sl0v3C/PriceSpider#chromedriver-for-chrome-browser)  
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;1\.2 [IEDriverServer](https://github.com/Sl0v3C/PriceSpider#iedriverserver-for-internet-explorer-browser)  
