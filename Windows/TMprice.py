@@ -1,6 +1,3 @@
-#!/usr/bin/python3.4
-
-import json
 import re
 import HTMLInfo, sys, threading, time
 from lxml import html
@@ -8,12 +5,16 @@ from selenium import webdriver
 
 driver_lock = threading.Lock()
 
+
 class TMprice(object):
     def __init__(self, url):
         self.url = url
-        #HTMLInfo.header['referer'] = url
-        r = HTMLInfo.getHTML(url)
-        self.html = r
+        HTMLInfo.REFERER = url
+        r = HTMLInfo.get_html(url)
+        if r.encoding:
+            self.html = r.content.decode(r.encoding)
+        else:
+            self.html = r.content.decode('utf-8')
         self.info = self.get_info()
 
     def get_info(self):
@@ -23,7 +24,7 @@ class TMprice(object):
         if status:
             for i in status:
                 if re.search('TShop.Setup', i):
-                    info = i
+                    return i
 
         return info
 
@@ -38,65 +39,56 @@ class TMprice(object):
             url_list.append(url + str(page))
 
     def get_skuid(self):
-        skuidlist = []
-        stocklist = []
-        self.get_info()
+        sku_id_list = []
         if self.info:
-            SKUMAP = re.compile(r',"skuMap":{";(.*?)}}},')
-            skuinfo = re.findall(SKUMAP, self.info)
-            SKUID = re.compile(r'"skuId":"(.*?)"')
-            STOCK = re.compile(r',"stock":(.*?)$')
-            if skuinfo:
-                skulist = re.findall(SKUID, skuinfo[0])
-                stocklist = re.findall(STOCK, skuinfo[0])
-                while stocklist:
-                    stocklist2 = re.findall(STOCK, stocklist[0])
-                    if stocklist2:
-                        stocklist = stocklist2
-                    else:
-                        break
-                if stocklist:
-                    for i, v in enumerate(stocklist):
+            sku_map_pattern = re.compile(r',"skuMap":{";(.*?)}}},')
+            sku_info = re.findall(sku_map_pattern, self.info)
+            sku_id_pattern = re.compile(r'"skuId":"(.*?)"')
+            stock_pattern = re.compile(r',"stock":(.*?)},')
+            if sku_info:
+                sku_list = re.findall(sku_id_pattern, sku_info[0])
+                stock_list = re.findall(stock_pattern, sku_info[0])
+                if stock_list:
+                    for i, v in enumerate(stock_list):
                         if int(v) == 0:
                             continue
                         else:
-                            skuidlist.append(skulist[i])
+                            sku_id_list.append(sku_list[i])
 
-        return skuidlist
+        return sku_id_list
 
     def get_info_2dictionary(self, driver):
-        saleprice = ""
+        sale_price = ""
         jpg = ""
         promotion = ""
         price = ""
-        title = ""
-        Dict = {}
-        self.get_info()
-        driver_lock.acquire()
-        driver.get(self.url)
-        time.sleep(1)
-         
-        try:
-            title = driver.find_element_by_xpath('//img[@id="J_ImgBooth"]').get_attribute('alt')
-            price = driver.find_element_by_xpath('//dl[@id="J_StrPriceModBox"]/dd/span[@class="tm-price"]').text
-            saleprice = driver.find_element_by_xpath('//dl[@id="J_PromoPrice"]//span[@class="tm-price"]').text
-            jpg = driver.find_element_by_xpath('//img[@id="J_ImgBooth"]').get_attribute('src')
-            promotion = driver.find_element_by_xpath('//dl[@class="tm-shopPromo-panel"]//dd').text
-        except:
-            pass
-        driver_lock.release()
+        data_dict = {}
+        if self.info:
+            title_pattern = re.compile(r',"title":(.*?),')
+            title = re.findall(title_pattern, self.info)[0]
+            title = re.sub('"', '', title)
+            driver_lock.acquire()
+            driver.get(self.url)
+            # time.sleep(0.2)
+            try:
+                price = driver.find_element_by_xpath('//dl[@id="J_StrPriceModBox"]/dd/span[@class="tm-price"]').text
+                sale_price = driver.find_element_by_xpath('//dl[@id="J_PromoPrice"]//span[@class="tm-price"]').text
+                jpg = driver.find_element_by_xpath('//img[@id="J_ImgBooth"]').get_attribute('src')
+                promotion = driver.find_element_by_xpath('//dl[@class="tm-shopPromo-panel"]//dd').text
+            except:
+                pass
+            data_dict["URL"] = self.url
+            data_dict["NAME"] = title
+            data_dict["PRICE"] = (sale_price if sale_price else price)
+            data_dict["JPG"] = jpg
+            data_dict["PROMOTION"] = promotion
+            driver_lock.release()
+        if not data_dict["JPG"] or not data_dict["PRICE"] or not data_dict["NAME"]:
+            data_dict = {}
 
-        Dict["URL"] = self.url
-        Dict["NAME"] = title
-        Dict["PRICE"] = (saleprice if saleprice else price)
-        Dict["JPG"] = jpg
-        Dict["PROMOTION"] = promotion
-        if not Dict["JPG"] or not Dict["PRICE"] or not Dict["NAME"]:
-            Dict = {}
+        return data_dict
 
-        return Dict
-
-    def isSingleProduct(self):
+    def is_single_product(self):
         tree = html.fromstring(self.html)
         status = tree.xpath('//div[@class="tb-sku"]//dt[@class="tb-metatit"]/text()')
         if status:
@@ -108,40 +100,38 @@ class TMprice(object):
     def get_real_item_link(self, url):
         url_list = []
         tm = TMprice(url)
-        if tm.isSingleProduct():
+        if tm.is_single_product():
             url_list.append(url)
         else:
             for i in tm.get_skuid():
-                URL = url + "&skuId=" + i
-                url_list.append(URL) 
-        
+                url_pattern = url + "&skuId=" + i
+                url_list.append(url_pattern)
+
         return url_list
-  
-    def get_itemlist(self, item_list):
+
+    def get_item_list(self, item_list):
         tree = html.fromstring(self.html)
         status = tree.xpath('//script/text()')
         if status:
-            PAGEINFO = re.compile(r'g_page_config = (.*?)};')
-            URL = re.compile(r'"detail_url":"(.*?)",')
+            page_info = re.compile(r'g_page_config = (.*?)};')
+            url_pattern = re.compile(r'"detail_url":"(.*?)",')
             for i in status:
-                if re.search(PAGEINFO, i):
+                if re.search(page_info, i):
                     status = i
                     break
-            info = re.findall(PAGEINFO, status)[0] + '}'
-           
-            urllist = re.findall(URL, bytes(info.encode()).decode('unicode-escape'))
-            for i in urllist:
+            info = re.findall(page_info, status)[0] + '}'
+
+            url_list = re.findall(url_pattern, bytes(info.encode()).decode('unicode-escape'))
+            for i in url_list:
                 i = re.sub('//', 'https://', i)
                 if re.search("https://detail.tmall.com/", i):
-                    itemlist = self.get_real_item_link(i)
-                    for i in itemlist:
-                        if i not in item_list:
-                            item_list.append(i)
+                    item_list = self.get_real_item_link(i)
+                    for j in item_list:
+                        if j not in item_list:
+                            item_list.append(j)
 
-if __name__ == '__main__':
-     #tmall = TMprice('''"https://detail.tmall.com/item.htm?spm=a230r.1.14.37.MxAmy6&id=36856935572&ns=1&abbucket=3")#'''
-     tmall = TMprice("https://detail.tmall.com/item.htm?id=554946939851&ns=1&abbucket=0")
-     tmall.get_skuid()
-     driver = webdriver.Firefox()
-     tmall.get_info_2dictionary(driver)
-     driver.quit()
+# if __name__ == '__main__':
+# tmall = TMprice('''"https://detail.tmall.com/item.htm?spm=a230r.1.14.37.MxAmy6&id=36856935572&ns=1&abbucket=3")#'''
+#     tmall = TMprice("https://detail.tmall.com/item.htm?id=41995475605&ns=1&abbucket=0")
+#     tmall.get_skuid()
+#     tmall.get_info_2dictionary()

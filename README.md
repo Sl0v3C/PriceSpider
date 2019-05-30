@@ -67,7 +67,7 @@ You should config some files before you run the tool.
 This file save the e-shop links, you can delete the ``` # ``` at the beginnig of the url link to enable get info from this link.
 <pre># You can add '#' at the beginning of the line to cancel getting info from the shop
 #http://search.jd.com/Search?keyword=GOODS&enc=utf-8&page=
-#https://www.amazon.cn/s/&keywords=GOODS&page=
+https://www.amazon.cn/s?k=GOODS&lo=grid&page=
 https://s.taobao.com/search?q=GOODS&tab=mall&s=
 #http://d.beibei.com/search/GOODS-.html
 </pre>
@@ -77,6 +77,8 @@ This file save the product you want to get the info.
 Now the tool only support one product.
 <pre>
 LEGO
+Olay
+Hasbro
 </pre>
 
 ## Usage
@@ -155,15 +157,17 @@ Price Spider是一个可以帮助用户从各大电商网站如京东，天猫�
 这个文件用于保存电商网页的地址，你可以通过在网址的头部添加或删除``` # ```来启用或禁用抓取该网址。
 <pre># You can add '#' at the beginning of the line to cancel getting info from the shop
 #http://search.jd.com/Search?keyword=GOODS&enc=utf-8&page=
-#https://www.amazon.cn/s/&keywords=GOODS&page=
+https://www.amazon.cn/s?k=GOODS&lo=grid&page=
 https://s.taobao.com/search?q=GOODS&tab=mall&s=
 #http://d.beibei.com/search/GOODS-.html
 </pre>
 
 ### cfg/PRODUCT
-该文件用于保存你想要抓取的商品名称，目前只支持保存一个商品名称。
+该文件用于保存你想要抓取的商品名称，支持保存多个商品名称。
 <pre>
 乐高
+雅诗兰黛
+Olay
 </pre>
 
 ## 用法
