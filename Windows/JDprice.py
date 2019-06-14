@@ -13,6 +13,7 @@ class JDPrice(object):
         HTMLInfo.REFERER = url
         r = HTMLInfo.get_html(url)
         self.html = r.text
+
         self.info = self.get_product()
 
     def get_url_page(self):
@@ -33,7 +34,7 @@ class JDPrice(object):
 
     def get_itemlist(self, itemlist):
         tree = html.fromstring(self.html)
-        status = tree.xpath('//div[@id="J_goodsList"]//div[@class="p-name p-name-type-2"]//@href')
+        status = tree.xpath('//div[@id="J_goodsList"]//div[@class="p-img"]//@href')
         for item in status:
             if re.search('^//item.jd.com', item):
                 item = re.sub('//', 'https://', item)
@@ -91,34 +92,34 @@ class JDPrice(object):
         url = "http://cd.jd.com/promotion/v2?&skuId=" + sku_id + "&area=2_2813_51976_0&shopId=" + shop_id + "&venderId=" + vender_id + "&cat=" + cat
         prom = HTMLInfo.get_html(url).content.decode('gbk')
         try:
-            prom = json.loads(prom)
-            if "skuCoupon" in prom.keys():
-                if prom["skuCoupon"]:
-                    for i in prom["skuCoupon"]:
-                        discount[i["discount"]] = i["quota"]
+            if prom.find('You have triggered an abuse') < 0:
+                prom = json.loads(prom)
+                if "skuCoupon" in prom.keys():
+                    if prom["skuCoupon"]:
+                        for i in prom["skuCoupon"]:
+                            discount[i["discount"]] = i["quota"]
 
-            if "prom" in prom.keys():
-                if "tags" in prom["prom"].keys():
-                    if prom["prom"]["tags"]:
-                        if prom["prom"]["tags"][0]["name"] == "会员特价":
-                            vip = prom["prom"]["tags"][0]["name"]
+                if "prom" in prom.keys():
+                    if "tags" in prom["prom"].keys():
+                        if prom["prom"]["tags"]:
+                            if prom["prom"]["tags"][0]["name"] == u'会员特价':
+                                vip = prom["prom"]["tags"][0]["name"]
 
-                if "pickOneTag" in prom["prom"].keys():
-                    if prom["prom"]["pickOneTag"]:
-                        content = prom["prom"]["pickOneTag"][0]["content"]
-
+                    if "pickOneTag" in prom["prom"].keys():
+                        if prom["prom"]["pickOneTag"]:
+                            content = prom["prom"]["pickOneTag"][0]["content"]
         except Exception as ex:
-            print(ex)
+            print('get_product_promotion ', ex)
 
         sale = ""
         gift = ""
         if discount:
             for i in discount.keys():
-                sale += "满减：满" + str(discount[i]) + "减" + str(i) + "<br />"
+                sale += u'满减：满' + str(discount[i]) + u'减' + str(i) + "<br />"
         if vip:
             vip = str(vip) + "<br />"
         if content:
-            gift = "满赠：" + str(content) + "<br />"
+            gift = u'满赠：' + str(content) + "<br />"
 
         promotion = vip + sale + gift
 
@@ -129,8 +130,8 @@ class JDPrice(object):
         try:
             name_pattern = re.compile(r"name: '(.*?)',")
             name = re.findall(name_pattern, self.info)[0]
-        except:
-            pass
+        except Exception as ex:
+            print(ex)
         return bytes(name.encode()).decode('unicode-escape')
 
     def get_product_price(self):
@@ -140,7 +141,10 @@ class JDPrice(object):
         sku_id = self.get_product_skuid()
         r = HTMLInfo.get_html("https://d.jd.com/lab/get?callback=lab")
         match_pattern = re.compile(r"lab\(\[(.*?)\]\)")
-        json_data = json.loads(re.findall(match_pattern, r.text)[0])
+        try:
+            json_data = json.loads(re.findall(match_pattern, r.text)[0])
+        except Exception as ex:
+            print('get_product_price Ex:', ex)
         if re.match('www.jd.com', json_data['url']):
                 date = json_data["startOn"]
 
@@ -154,9 +158,9 @@ class JDPrice(object):
 
         if status:
             if 'tpp' in status:
-                plus_price = "PLUS价:<br />" + status['tpp']
+                plus_price = u"PLUS价:<br />" + status['tpp']
             if 'p' in status:
-                price = "京东价:<br />" + status['p']
+                price = u"京东价:<br />" + status['p']
         return price + "<br />" + plus_price
 
 
